@@ -101,6 +101,9 @@ a.ps{border-color:var(--ink)}a.ps:hover{background:var(--ink);color:var(--bg)}a.
 .grp .how p{margin:0;font-size:16px}
 .player{position:relative;aspect-ratio:16/9;max-width:860px;margin:28px 0 0;background:#000;border-radius:6px;overflow:hidden}.player video{position:absolute;inset:0;width:100%;height:100%;background:#000}
 .cap{font-size:14px;color:var(--soft);margin:8px 0 0}
+.talk{background:var(--panel);border-radius:8px;padding:22px clamp(16px,3vw,28px);margin-top:40px}
+.talk h2{margin-bottom:6px}.talk p{margin:0 0 4px;max-width:62ch}
+.addr{color:var(--soft);font-size:15px;margin-top:10px!important}.addr.big{font:500 24px 'EB Garamond',serif;color:var(--ink)}
 footer{border-top:1px solid var(--line);color:var(--soft);font-size:15px}
 [hidden]{display:none!important}
 @media(max-width:760px){.hero,.strophe{grid-template-columns:minmax(0,1fr)}.fan{order:-1;height:250px}.cover{width:min(48%,200px)}}
@@ -111,14 +114,14 @@ footer{border-top:1px solid var(--line);color:var(--soft);font-size:15px}
 <header class="top"><div class="wrap">
   <a class="brand" href="#home">Psalms in Verse</a>
   <nav class="scroll" aria-label="Pages">
-    <a href="#home">Home</a><a href="#psalm-1">Psalm 1</a><a href="#psalm-2">Psalm 2</a><a href="#psalm-3">Psalm 3</a><a href="#the-psalter">The Psalter as a book</a><a href="#how-to-read">How to read a psalm</a>
+    <a href="#home">Home</a><a href="#psalm-1">Psalm 1</a><a href="#psalm-2">Psalm 2</a><a href="#psalm-3">Psalm 3</a><a href="#the-psalter">The Psalter as a book</a><a href="#how-to-read">How to read a psalm</a><a href="#contact">Contact</a>
   </nav>
 </div></header>
 
 <main id="view"></main>
 
 <footer class="band"><div class="wrap">
-  Psalms in Verse sets each psalm as a congregational hymn, one stanza for each verse, kept as close to the Hebrew as the meter allows. Teaching draws on Allen P. Ross, <i>A Commentary on the Psalms</i> (Kregel), Samuel Terrien, <i>The Psalms: Strophic Structure and Theological Commentary</i> (Eerdmans); and David M. Howard Jr. and Andrew J. Schmutzer, eds., <i>Reading the Psalms Theologically</i> (Lexham). The lyric videos are also on YouTube at <a href="https://www.youtube.com/@psalmsinverse">youtube.com/@psalmsinverse</a>.
+  Psalms in Verse sets each psalm as a congregational hymn, one stanza for each verse, kept as close to the Hebrew as the meter allows. Teaching draws on Allen P. Ross, <i>A Commentary on the Psalms</i> (Kregel), Samuel Terrien, <i>The Psalms: Strophic Structure and Theological Commentary</i> (Eerdmans); and David M. Howard Jr. and Andrew J. Schmutzer, eds., <i>Reading the Psalms Theologically</i> (Lexham). Write to <a href="#contact">contact@psalmsinverse.com</a> · Newsletter: <a href="https://psalmsinverse.substack.com">psalmsinverse.substack.com</a> · The lyric videos are also on YouTube at <a href="https://www.youtube.com/@psalmsinverse">youtube.com/@psalmsinverse</a>.
 </div></footer>
 
 <script>
@@ -226,6 +229,7 @@ const psalm=p=>{
   <div class="words">${p.words.map(w=>`<div class="word"><b>${esc(w[0])}</b><i>Hebrew: ${esc(w[1])}</i><p>${esc(w[2])}</p></div>`).join('')}</div>
   <h2 style="margin-top:40px">To pray this week</h2>
   <ol class="pray">${p.pray.map(x=>`<li>${esc(x)}</li>`).join('')}</ol>
+  <div class="talk"><h2>Share your thoughts</h2><p>Questions, reflections on this psalm, or how you used the hymn in your church: I would love to hear from you.</p><a class="btn" href="mailto:contact@psalmsinverse.com?subject=${encodeURIComponent('Psalm '+p.n+': '+p.title)}">Email me about Psalm ${p.n}</a><p class="addr">contact@psalmsinverse.com</p></div>
   <p class="src">Strophe divisions follow Samuel Terrien. Teaching draws on Allen P. Ross, <i>A Commentary on the Psalms</i>; Terrien, <i>The Psalms</i>; and David M. Howard Jr. and Andrew J. Schmutzer, eds., <i>Reading the Psalms Theologically</i> (chapters by Peter C. W. Ho, James M. Hamilton Jr. and Seth D. Postell). It is a summary in our own words.</p>
   <nav style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:12px">
     ${p.n>1?`<a href="#psalm-${p.n-1}">← Psalm ${p.n-1}</a>`:'<span></span>'}
@@ -318,7 +322,16 @@ const psalter=()=>`<section class="band"><div class="wrap">
   <p class="src">Sources: Peter C. W. Ho, “The Macrostructural Design and Logic of the Psalter”; James M. Hamilton Jr., “David’s Biblical Theology and Typology in the Psalms”; Seth D. Postell, “Does the Book of Psalms Present a Divine Messiah?”, in David M. Howard Jr. and Andrew J. Schmutzer, eds., <i>Reading the Psalms Theologically</i> (Lexham). Summarized in our own words.</p>
 </div></section>`;
 
-const routes={'home':home,'how-to-read':how,'the-psalter':psalter};
+const contact=()=>`<section class="band"><div class="wrap">
+  <p class="rubric">Get in touch</p><h1>Contact</h1>
+  <p class="lede">Questions about a psalm, a correction, a request for the next psalm, or news of how the hymns are being sung in your church: write any time.</p>
+  <div class="talk" style="margin-top:28px"><h2>Email</h2><p class="addr big">contact@psalmsinverse.com</p><a class="btn" href="mailto:contact@psalmsinverse.com?subject=Psalms%20in%20Verse">Write an email</a></div>
+  <div class="how" style="margin-top:40px">
+    <div><h3>Using the hymns in church</h3><p>The hymns are written in Common Meter so a congregation can sing them. If you would like to use one in worship, send a note and say which psalm.</p></div>
+    <div><h3>New psalms by email</h3><p>Each new psalm is also published on the Psalms in Verse newsletter. <a href="https://psalmsinverse.substack.com">Subscribe free at psalmsinverse.substack.com</a> to receive it in your inbox.</p></div>
+  </div>
+</div></section>`;
+const routes={'home':home,'how-to-read':how,'the-psalter':psalter,'contact':contact};
 PS.forEach(p=>routes['psalm-'+p.n]=()=>psalm(p));
 const render=()=>{
   const h=(location.hash||'#home').slice(1);

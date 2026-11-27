@@ -114,7 +114,7 @@ footer{border-top:1px solid var(--line);color:var(--soft);font-size:15px}
 <header class="top"><div class="wrap">
   <a class="brand" href="#home">Psalms in Verse</a>
   <nav class="scroll" aria-label="Pages">
-    <a href="#home">Home</a><a href="#psalm-1">Psalm 1</a><a href="#psalm-2">Psalm 2</a><a href="#psalm-3">Psalm 3</a><a href="#psalm-4">Psalm 4</a><a href="#the-psalter">The Psalter as a book</a><a href="#how-to-read">How to read a psalm</a><a href="#about">About</a><a href="#contact">Contact</a>
+    <a href="#home">Home</a><a href="#book-one">Book I</a><a href="#the-psalter">The Psalter as a book</a><a href="#how-to-read">How to read a psalm</a><a href="#about">About</a><a href="#contact">Contact</a>
   </nav>
 </div></header>
 
@@ -230,7 +230,7 @@ const psalm=p=>{
   const H=HYMN[p.n];
   const st=s=>`<div class="strophe">
     <div>${s.verses.map(v=>`<p class="stanza"><span class="v">${p.n===2&&v===13?'verse 12b':'verse '+v}</span>${H[v-1].map(esc).join('<br>')}</p>${s.selah===v?'<p class="selah">Selah</p>':''}`).join('')}</div>
-    <div class="notes"><p class="rubric">${esc(s.label)}</p><h3 style="margin-bottom:12px">${esc(s.head)}</h3>${s.notes.map(n=>`<p>${esc(n)}</p>`).join('')}</div>
+    <div class="notes"><p class="rubric">${esc(s.label.split(' · ')[0])}</p><h3 style="margin-bottom:12px">${esc(s.head)}</h3>${s.notes.map(n=>`<p>${esc(n)}</p>`).join('')}</div>
   </div>`;
   return `<section class="band"><div class="wrap">
   <div class="phead"><div>
@@ -336,7 +336,7 @@ const psalter=()=>`<section class="band"><div class="wrap">
     <div><h3>Psalms that talk to each other</h3><p>Neighboring psalms share words and images on purpose. James Hamilton traces how Psalm 3 picks up Psalm 2’s “holy hill,” how Psalms 3 and 4 both lie down to sleep trusting God, and how the thread runs on to Psalm 8’s son of man. Hamilton argues that David understood himself as a pattern of the greater King to come.</p></div>
     <div><h3>Why it matters for singing</h3><p>When a congregation sings David’s prayers in order, it is not only borrowing his words; it is following the story of God’s King, which the New Testament sees fulfilled in Jesus, the Son of David.</p></div>
   </div>
-  ${bookOne()}
+  <p style="margin-top:40px"><a class="btn" href="#book-one">See how Book I is arranged</a></p>
   <p class="src">Sources: Peter C. W. Ho, “The Macrostructural Design and Logic of the Psalter”; James M. Hamilton Jr., “David’s Biblical Theology and Typology in the Psalms”; Seth D. Postell, “Does the Book of Psalms Present a Divine Messiah?”, in David M. Howard Jr. and Andrew J. Schmutzer, eds., <i>Reading the Psalms Theologically</i> (Lexham). Summarized in our own words.</p>
 </div></section>`;
 
@@ -357,13 +357,20 @@ const about=()=>`<section class="band"><div class="wrap">
     <div><h3>Stay in touch</h3><p>Questions, corrections and notes are always welcome at <a href="#contact">contact@psalmsinverse.com</a>. If your church sings one of these hymns, I would love to hear about it.</p></div>
   </div>
 </div></section>`;
-const routes={'home':home,'how-to-read':how,'the-psalter':psalter,'contact':contact,'about':about};
+const bookPage=()=>`<section class="band"><div class="wrap">
+  <p class="rubric">Psalms 1–41</p><h1>Book I</h1>
+  <p class="lede">The first book of the Psalter: the gateway of Psalms 1 and 2, then David’s prayers in trouble as God upholds his king. Here are the psalms sung so far.</p>
+  <div class="cards">${PS.map(p=>`<article class="card"><p class="rubric">Psalm ${p.n}</p><h3>${esc(p.title)}</h3><p>${esc(p.idea)}</p><a class="more" href="#psalm-${p.n}">Read and sing Psalm ${p.n}</a></article>`).join('')}</div>
+  ${bookOne()}
+  <p class="src">Source: Peter C. W. Ho, “The Macrostructural Design and Logic of the Psalter,” in David M. Howard Jr. and Andrew J. Schmutzer, eds., <i>Reading the Psalms Theologically</i> (Lexham). Summarized in our own words.</p>
+</div></section>`;
+const routes={'book-one':bookPage,'home':home,'how-to-read':how,'the-psalter':psalter,'contact':contact,'about':about};
 PS.forEach(p=>routes['psalm-'+p.n]=()=>psalm(p));
 const render=()=>{
   const h=(location.hash||'#home').slice(1);
   const key=routes[h]?h:'home';
   view.innerHTML=routes[key]();
-  document.querySelectorAll('header nav a').forEach(a=>{if(a.getAttribute('href')==='#'+key)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
+  document.querySelectorAll('header nav a').forEach(a=>{if(a.getAttribute('href')==='#'+(key.startsWith('psalm-')?'book-one':key))a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
   window.scrollTo(0,0);
 };
 window.addEventListener('hashchange',render);

@@ -1,7 +1,7 @@
 // Psalms in Verse: offline support. Pages and images are cached; videos stream online.
-const CACHE = 'piv-v1';
+const CACHE = 'piv-v2';
 const CORE = ['/', '/index.html', '/favicon.svg', '/manifest.webmanifest', '/icon-192.png', '/icon-512.png',
-  '/videos/psalm-1.jpg', '/videos/psalm-2.jpg', '/videos/psalm-3.jpg', '/videos/psalm-4.jpg'];
+  '/videos/psalm-1.jpg', '/videos/psalm-2.jpg', '/videos/psalm-3.jpg'];
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(CORE)).then(() => self.skipWaiting()));
 });

@@ -8,6 +8,13 @@
 <meta property="og:title" content="Psalms in Verse">
 <meta property="og:description" content="Sing the Psalms, and know what you are singing.">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#000000">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Psalms">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
 <style>
@@ -114,7 +121,7 @@ footer{border-top:1px solid var(--line);color:var(--soft);font-size:15px}
 <header class="top"><div class="wrap">
   <a class="brand" href="#home">Psalms in Verse</a>
   <nav class="scroll" aria-label="Pages">
-    <a href="#home">Home</a><a href="#book-one">Book I</a><a href="#the-psalter">The Psalter as a book</a><a href="#how-to-read">How to read a psalm</a><a href="#about">About</a><a href="#contact">Contact</a>
+    <a href="#home">Home</a><a href="#book-one">Book I</a><a href="#the-psalter">The Psalter as a book</a><a href="#how-to-read">How to read a psalm</a><a href="#app">App</a><a href="#about">About</a><a href="#contact">Contact</a>
   </nav>
 </div></header>
 
@@ -365,7 +372,17 @@ const bookPage=()=>`<section class="band"><div class="wrap">
   ${bookOne()}
   <p class="src">Source: Peter C. W. Ho, “The Macrostructural Design and Logic of the Psalter,” in David M. Howard Jr. and Andrew J. Schmutzer, eds., <i>Reading the Psalms Theologically</i> (Lexham). Summarized in our own words.</p>
 </div></section>`;
-const routes={'book-one':bookPage,'home':home,'how-to-read':how,'the-psalter':psalter,'contact':contact,'about':about};
+const app=()=>`<section class="band"><div class="wrap">
+  <p class="rubric">On your phone</p><h1>Get the app</h1>
+  <p class="lede">Psalms in Verse installs straight from this website. It sits on your home screen like any app, opens full screen, and keeps the hymns and teaching readable even without a connection. Nothing to download from an app store.</p>
+  <div class="how" style="margin-top:28px">
+    <div><h3>iPhone or iPad</h3><p>Open psalmsinverse.com in <b>Safari</b>. Tap the <b>Share</b> button (the square with an arrow), scroll down, and tap <b>Add to Home Screen</b>, then <b>Add</b>.</p></div>
+    <div><h3>Android</h3><p>Open psalmsinverse.com in <b>Chrome</b>. Tap the <b>⋮</b> menu, then <b>Install app</b> or <b>Add to Home screen</b>.</p></div>
+    <div><h3>Computer</h3><p>In Chrome or Edge, click the install icon at the right end of the address bar, or open the menu and choose <b>Install Psalms in Verse</b>.</p></div>
+    <div><h3>Offline</h3><p>Once installed, the words, strophes and teaching for every psalm are saved on your device. The lyric videos need a connection to play.</p></div>
+  </div>
+</div></section>`;
+const routes={'app':app,'book-one':bookPage,'home':home,'how-to-read':how,'the-psalter':psalter,'contact':contact,'about':about};
 PS.forEach(p=>routes['psalm-'+p.n]=()=>psalm(p));
 const render=()=>{
   const h=(location.hash||'#home').slice(1);
@@ -376,6 +393,7 @@ const render=()=>{
 };
 window.addEventListener('hashchange',render);
 render();
+if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
 }
 </script>
 </body>

@@ -46,8 +46,8 @@ h3{font-size:24px}
 .fan{position:relative;height:clamp(330px,42vw,470px)}
 .cover{position:absolute;width:min(56%,270px);aspect-ratio:1;background:#000;color:#fff;display:flex;flex-direction:column;align-items:center;padding-top:9%;text-decoration:none;font:400 clamp(14px,1.6vw,18px)/1 "EB Garamond",serif;letter-spacing:.32em;border-radius:3px;box-shadow:0 18px 40px rgba(0,0,0,.28),inset 0 0 0 1px rgba(255,255,255,.08);transition:transform .35s ease}
 .cover small{margin-top:12px;letter-spacing:0;font:400 12px/1 "Source Sans 3",sans-serif;letter-spacing:0;color:#bdbdbd}
-.cover:nth-child(1){left:2%;top:0;transform:rotate(-3deg)}
-.cover:nth-child(2){left:20%;top:19%;transform:rotate(1deg);z-index:2}
+.cover:nth-child(1){left:6%;top:4%;transform:rotate(-3deg)}
+.cover:nth-child(2){left:34%;top:30%;transform:rotate(3deg);z-index:2}
 .cover:nth-child(3){left:38%;top:38%;transform:rotate(4deg);z-index:3}
 .cover:hover{transform:translateY(-10px) rotate(0)}
 @media(prefers-reduced-motion:reduce){.cover{transition:none}}
@@ -113,7 +113,7 @@ a.ps{border-color:var(--ink)}a.ps:hover{background:var(--ink);color:var(--bg)}a.
 .addr{color:var(--soft);font-size:15px;margin-top:10px!important}.addr.big{font:500 24px 'EB Garamond',serif;color:var(--ink)}
 footer{border-top:1px solid var(--line);color:var(--soft);font-size:15px}
 [hidden]{display:none!important}
-@media(max-width:760px){.hero,.strophe{grid-template-columns:minmax(0,1fr)}.fan{order:-1;height:250px}.cover{width:min(48%,200px)}}
+@media(max-width:760px){.hero,.strophe{grid-template-columns:minmax(0,1fr)}.fan{order:-1;height:300px}.cover{width:min(48%,200px)}.cover:nth-child(2){top:36%}}
 @media(max-width:600px){.phead{grid-template-columns:minmax(0,1fr)}.mini{display:none}}
 </style>
 </head>
@@ -220,8 +220,8 @@ const home=()=>`
     <p class="lede">Each psalm is set as a hymn, one stanza for every verse, as close to the Hebrew as a singable meter allows. Here you will find the words, the shape of each psalm, and short teaching drawn from two great commentaries.</p>
     <a class="btn" href="#psalm-1">Begin with Psalm 1</a>
   </div>
-  <div class="fan" aria-label="Psalms in the series">
-    ${PS.map(p=>`<a class="cover" href="#psalm-${p.n}">PSALM ${p.word}<small>${esc(p.title)}</small></a>`).join('')}
+  <div class="fan" aria-label="Psalms 1 and 2, the gateway to the Psalter">
+    ${PS.filter(p=>p.n<=2).map(p=>`<a class="cover" href="#psalm-${p.n}">PSALM ${p.word}<small>${esc(p.title)}</small></a>`).join('')}
   </div>
 </div></section>
 <section class="band" style="background:var(--panel)"><div class="wrap">
